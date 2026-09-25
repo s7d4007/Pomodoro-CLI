@@ -8,9 +8,11 @@ A minimalist Pomodoro timer built with **Go**, [Bubble Tea](https://github.com/c
 
 ## Features
 
-* 25-minute Pomodoro countdown
+* Configurable focus and break durations
+* Automatic focus, short-break, and long-break cycles
 * Real-time countdown powered by Bubble Tea's `tea.Tick`
-* Pause and resume functionality
+* Pause, resume, reset, and skip controls
+* Configurable number of focus sessions per cycle
 * Minimalist terminal interface styled with Lipgloss
 * Focus, paused, and completed timer states
 * Lightweight CLI application written in Go
@@ -57,15 +59,34 @@ Launch the application from your terminal:
 go run .
 ```
 
+Customize the session lengths and cycle size with flags:
+
+```bash
+go run . --focus 25 --short-break 5 --long-break 15 --cycles 4
+```
+
 ### Keyboard Controls
 
 | Key        | Action                    |
 | ---------- | ------------------------- |
-| `Space`  | Pause or resume the timer |
-| `Q`      | Quit the application      |
-| `Ctrl+C` | Quit the application      |
+| Key       | Action                         |
+|-----------|--------------------------------|
+| `Space`   | Pause or resume the timer      |
+| `R`       | Reset to the first focus timer |
+| `N`       | Skip to the next phase         |
+| `Q`       | Quit the application           |
+| `Ctrl+C`  | Quit the application           |
 
-The timer starts automatically at 25:00 and stops when it reaches 00:00.
+The timer starts automatically and transitions between focus and break phases when a countdown reaches zero.
+
+### Options
+
+| Option         | Default | Description                          |
+|----------------|---------|--------------------------------------|
+| `--focus`      | `25`    | Focus duration in minutes            |
+| `--short-break`| `5`     | Short break duration in minutes      |
+| `--long-break` | `15`    | Long break duration in minutes       |
+| `--cycles`     | `4`     | Focus sessions before a long break   |
 
 ## Project Structure
 
@@ -74,6 +95,7 @@ Pomodoro-CLI/
 ├── assets/
 │   └── pomodoro-demo.gif
 ├── main.go
+├── main_test.go
 ├── go.mod
 ├── go.sum
 ├── README.md
